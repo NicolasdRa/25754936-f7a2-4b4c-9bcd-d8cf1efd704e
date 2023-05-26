@@ -7,7 +7,9 @@ import { ParkSpotsList } from '../ParkSpotsList/ParkSpotsList';
 import { ReservationsChart } from '../ReservationsChart/ReservationsChart';
 
 import { Spot, selectSpots, setInUse } from '../../../store/spotSlice';
+import { startBooking } from '../../../store/reservationsSlice';
 import { useAppDispatch } from '../../../store/hooks';
+import { generatePlate } from '../../../helpers/helpers';
 
 export const Dashboard = () => {
 	const dispatch = useAppDispatch();
@@ -24,7 +26,16 @@ export const Dashboard = () => {
 				confirmButtonText: 'Cool',
 			});
 		} else {
-			dispatch(setInUse(firstFreeSpot.spotId));
+			// generate a booking
+			const newBooking = {
+				id: crypto.randomUUID(),
+				spotId: firstFreeSpot.spotId,
+				plateNumber: generatePlate(),
+				startTime: new Date().toLocaleString(),
+				endTime: null,
+			};
+			dispatch(startBooking(newBooking));
+			dispatch(setInUse(newBooking.spotId));
 		}
 	};
 

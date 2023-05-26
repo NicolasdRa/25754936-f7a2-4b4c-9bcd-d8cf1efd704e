@@ -1,8 +1,14 @@
 import { Typography } from '@mui/material';
 
 import { StyledLogListWrapper, StyledWrapper } from './styles';
+import { PlateEntry } from '../PlateEntry/PlateEntry';
 
 import { Spot } from '../../../store/spotSlice';
+import {
+	Reservation,
+	selectReservationsBySpotId,
+} from '../../../store/reservationsSlice';
+import { useAppSelector } from '../../../store/hooks';
 
 import { generateSpotDisplayNumber } from '../../../helpers/helpers';
 
@@ -12,6 +18,7 @@ interface SpotLogProps {
 
 export const SpotLog: React.FC<SpotLogProps> = ({ data }) => {
 	const { spotId } = data;
+	const spotReservations = useAppSelector(selectReservationsBySpotId(spotId));
 
 	return (
 		<StyledWrapper>
@@ -19,7 +26,11 @@ export const SpotLog: React.FC<SpotLogProps> = ({ data }) => {
 				{`#${generateSpotDisplayNumber(spotId)}`}
 			</Typography>
 
-			<StyledLogListWrapper>{/* here map reservations */}</StyledLogListWrapper>
+			<StyledLogListWrapper>
+				{spotReservations.map((reservation: Reservation) => (
+					<PlateEntry key={reservation.id} data={reservation} />
+				))}
+			</StyledLogListWrapper>
 		</StyledWrapper>
 	);
 };

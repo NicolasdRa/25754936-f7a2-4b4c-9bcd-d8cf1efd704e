@@ -3,7 +3,11 @@ import { Typography } from '@mui/material';
 import { StyledButton, StlyedIndicator, StyledWrapper } from './styles';
 
 import { Spot, setAvailable } from '../../../store/spotSlice';
-import { useAppDispatch } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import {
+	endBooking,
+	selectCurrentReservationBySpotId,
+} from '../../../store/reservationsSlice';
 
 import { generateSpotDisplayNumber } from '../../../helpers/helpers';
 
@@ -14,10 +18,14 @@ interface ParkSpotProps {
 export const ParkingSpot: React.FC<ParkSpotProps> = ({ data }) => {
 	const { spotId, state } = data;
 	const dispatch = useAppDispatch();
+	const currentReservation = useAppSelector(
+		selectCurrentReservationBySpotId(spotId),
+	);
 
 	const handleExit = () => {
 		if (state === 'available') return;
-
+		currentReservation !== undefined &&
+			dispatch(endBooking(currentReservation.id));
 		dispatch(setAvailable(spotId));
 	};
 

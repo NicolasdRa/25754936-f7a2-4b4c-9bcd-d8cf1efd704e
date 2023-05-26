@@ -52,4 +52,5 @@ export const { setInUse, setAvailable } = spotsSlice.actions;
 // Selectors
 export const selectSpots = (state: RootState) => state.spots.data;
 
+//Export the reducer as a default export
 export default spotsSlice.reducer;
