@@ -1,8 +1,13 @@
+import { Dashboard } from './components/ui/Dashboard/Dashboard';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { uiTheme } from './styles/Theme';
+
 function App() {
 	return (
-		<>
-			<h1>Hi there</h1>
-		</>
+		<ThemeProvider theme={uiTheme}>
+			<CssBaseline />
+			<Dashboard />
+		</ThemeProvider>
 	);
 }
 
