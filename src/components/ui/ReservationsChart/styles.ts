@@ -12,7 +12,7 @@ export const StyledWrapper = styled('div')`
 export const StyledContainer = styled('div')`
 	align-items: center;
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: space-around;
 	width: 100%;
 `;

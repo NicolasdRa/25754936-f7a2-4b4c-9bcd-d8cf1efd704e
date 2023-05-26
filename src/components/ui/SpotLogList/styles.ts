@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import { styled } from '@mui/system';
 
-export const StyledWrapper = styled.div`
+export const StyledWrapper = styled('div')`
 	align-items: start;
 	display: flex;
 	flex-direction: row;
