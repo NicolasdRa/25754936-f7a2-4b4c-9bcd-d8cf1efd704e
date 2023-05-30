@@ -10,7 +10,7 @@ export interface Reservation {
 }
 
 // Type for the slice state
-interface ReservationsSlice {
+export interface ReservationsSlice {
 	data: Reservation[];
 }
 
